@@ -33,10 +33,13 @@ We will begin the unit using GUI's, such as MySQL Workbench, to interface with o
 You will be employer-ready if you can answer the following questions:
 
 1. What is CRUD?
+Create, Read, Update, Delete
 
 2. What is ACID? 
+Atomocity, Consistency, Isolation, Durability.
 
 3. How does one join data between tables? 
+Keys
 
 ## Learning Objectives
 

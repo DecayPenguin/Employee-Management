@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-
+// function to display all departments in database
 function displayDepartments(connection) {
     return new Promise((resolve, reject) => {
         let sqlQuery = "SELECT name FROM departments";
@@ -12,7 +12,7 @@ function displayDepartments(connection) {
         });
     });
 };
-
+// function to allow user to select a department
 function selectDepartment(dept) {
     return inquirer.prompt([{
         type: "list",
@@ -21,7 +21,7 @@ function selectDepartment(dept) {
         choices: dept
     }]);
 };
-
+// gets ID of selected department
 function getDeptID(connection, dept) {
     return new Promise((resolve, reject) => {
         let sqlQuery = "SELECT id FROM departments AS dept WHERE dept.name = ?";
@@ -30,12 +30,22 @@ function getDeptID(connection, dept) {
                 reject(err);
             else
                 resolve(data);
-        })
-    })
-}
+        });
+    });
+};
+// allows user to input name of a new department
+function getDeptName() {
+    return inquirer.prompt([{
+        type: "input",
+        message: "Title of role to add?",
+        name: "name"
+    }
+    ]);
+};
 
 module.exports = {
     displayDepartments,
     selectDepartment,
-    getDeptID
+    getDeptID,
+    getDeptName
 };

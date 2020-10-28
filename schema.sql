@@ -36,4 +36,4 @@ CREATE TABLE employees(
 );
 
 INSERT INTO employees(first_name, last_name, roles_id, manager_id)
-VALUES("Bob", "Sagget", 4, NULL),("Test","Last", 3, 1);
+VALUES("Stone", "Cold", 4, NULL),("Test","Last", 3, 1);
