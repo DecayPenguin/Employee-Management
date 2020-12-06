@@ -53,8 +53,24 @@ const newDepartment = [{
 
 
 
+function addQuestions() {
+  inquirer.prompt(addType).then(function (response) {
+      let choice = response.addChoice[0];
+      console.log(choice);
+      if (choice === "Department") {
+          addDepartment()
+      };
+      if (choice === "Role") {
+          addRole()
+      };
+      if (choice === "Employee") {
+          addEmployee()
+      };
+  })
+};
+
 function viewQuestions() {
-  inquirer.prompt(viewType).then(function (response) {
+  inquirer.prompt(addType).then(function (response) {
       let choice = response.viewChoice[0];
       console.log(choice);
       if (choice === "Department") {
@@ -69,7 +85,7 @@ function viewQuestions() {
   })
 };
 
-function updateQuestions() {
+async function updateQuestions() {
   let roles = await connection.query("SELECT * FROM role");
   let employees = await connection.query("SELECT * FROM employee");
   let department = await connection.query("SELECT * FROM department");
