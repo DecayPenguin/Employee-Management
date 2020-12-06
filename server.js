@@ -2,10 +2,6 @@ const express = require("express");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const util = require("util");
-// const questions = require ("./questions");
-// const viewFunction = require("./viewFunction");
-
-
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -16,9 +12,6 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 connection.query = util.promisify(connection.query);
-
-
-
 
 // NAME, SALARY, DEPARTMENT ID
 
@@ -58,13 +51,13 @@ function addQuestions() {
       let choice = response.addChoice[0];
       console.log(choice);
       if (choice === "Department") {
-          addDepartment()
+          addDepartment();
       };
       if (choice === "Role") {
-          addRole()
+          addRole();
       };
       if (choice === "Employee") {
-          addEmployee()
+          addEmployee();
       };
   })
 };
@@ -126,7 +119,7 @@ async function updateQuestions() {
 
 
 inquirer.prompt(updateType).then(function (response){
-  let updateEmplo = response.updateEmp;
+  let updateEmplo = response.updateEmplo;
   let updateRole = response.updateRole;
   let updateDept = response.updateDept;
   console.log(updateEmplo);
