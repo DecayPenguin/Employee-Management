@@ -156,6 +156,24 @@ async function addRole() {
     message: "Name the new role.",
     name: "roleName"
   },
-  {type: "input",}
-  ]
+  {
+    type: "input",
+    message: "Input the role's salary(Only numbers are accepted, no decimals or commas)",
+    name: "salary"
+  },
+  {
+    type: "list",
+    message: "Assign a department to this role",
+    choices: department.map(function(department) {
+      return {
+        name: department.name,
+        value: department.id
+      };
+    }),
+    name: "roleDepartment"
+  },
+  {
+
+  }
+  ]  
 }
