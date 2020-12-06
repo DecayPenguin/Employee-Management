@@ -17,8 +17,6 @@ function addQuestions() {
     })
 }
 
-
-
 INSERT INTO employee(first_name, last_name, rolde_id, )
 
 CREATE TABLE employee(
@@ -28,12 +26,32 @@ CREATE TABLE employee(
     role_id INTEGER NOT NULL,
     manager_id INTEGER NOT NULL,
     INDEX mngr_index(manager_id),
-
 );
 
+-- Role ID
 INSERT INTO department (name)
-VALUES ("Legal"),
+VALUES
 ("Manufacturing"),
-("Salesman");
+("Business"),
+("Legal");
 
+-- Department ID
+INSERT INTO role(name, salary, department_id)
+VALUES(Engineer, 66100, 1)
+(Marketer, 44000, 2)
+(Lawyer, 74000, 3)
 
+-- INSERT INTO department
+
+INSERT INTO employee(first_name, last_name, role_id, manager_id)
+VALUES ("Evan", "Hansen", 1, null),
+("Jason", "Dean", 2, 1),
+("Alex", "Rider", 2, 1),
+("Rich", "Goranski", 2, null),
+("Jeremy", "Heere", 2, 4),
+("Michael", "Mell", 2, 4),
+("Nicholas", "Bourbaki", 2, 4)
+("Veronica", "Sawyer", 3, null),
+("Lydia", "Deetz", 3, 8)
+("Delia", "Deetz", 3, 8)
+("Chirstine", "Canigula", 3, 8)

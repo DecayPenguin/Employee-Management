@@ -46,8 +46,50 @@ const viewType = [{
 
 const newDepartment = [{
   type: 'input',
-  name: 'departmentName',
+  name: 'departmentTitle',
   message: 'Name this department.'  
 }];
        
 
+function viewQuestions() {
+  inquirer.prompt(viewType).then(function (response) {
+  let choice = response.viewChoice[0];
+  console.log(choice);
+  if (choice === "department") {
+    viewDepartment()
+  };
+  if(choice === "role") {
+    viewRole()
+  };
+  if (choice === "employee") {
+    viewEmployee()
+  };
+})
+}
+
+async function updateQuestions() {
+  let roles = await connection.query("SELECT * FROM role");
+  let employees = await connection.query("SELECT * FROM employee");
+  const updateType = [{
+      type: "list",
+      message: "Select the employee you wish to update",
+      choices: employees.map(function (employee) {
+          return {
+              name: employee.last_name,
+              value: employee.id
+          };
+      }),
+      name: "updateEmployee"
+  },
+  {
+      type: "list",
+      message: "Select the role to give to the employee",
+      choices: roles.map(function (role) {
+          return {
+              name: role.name,
+              value: role.id
+          };
+      }),
+      name: "newRole"
+  }
+]};
