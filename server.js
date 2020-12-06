@@ -69,9 +69,10 @@ function viewQuestions() {
   })
 };
 
-function viewQuestions() {
+function updateQuestions() {
   let roles = await connection.query("SELECT * FROM role");
   let employees = await connection.query("SELECT * FROM employee");
+  let department = await connection.query("SELECT * FROM department");
   const updateType = [{
       type: "list",
       message: "Select the employee you wish to update",
@@ -81,7 +82,7 @@ function viewQuestions() {
               value: employee.id
           };
       }),
-      name: "updateEmployee"
+      name: "updateEmplo"
   },
   {
       type: "list",
@@ -92,30 +93,69 @@ function viewQuestions() {
               value: role.id
           };
       }),
-      name: "newRole"
+      name: "updateRole"
+  },
+  {
+    type: "list",
+    message: "Select the department you would like to give the selected employee",
+    choices: department.map(function (department) {
+      return {
+        name: department.name,
+        value: department.id
+      }
+    }),
+    name: "updateDept"
   }
 ]};
 
-function addQuestions() {
-  inquirer.prompt(viewType).then(function (response) {
-    let choice = response.viewChoice[0];
-    console.log(choice);
-    if (choice === "Department") {
-      viewDepartment()
-    };
-    if(choice === "Role") {
-      viewRole()
-    };
-    if (choice === "Employee") {
-      viewEmployee()
-    };
-  })
-}
 
-async function updateQuestions() {
-  let roles = await connection.query("SELECT * FROM employee");
-  let employees = await connection.query("SELECT * FROM employee")
-  const updateType = [{
-    type: "list"
-  }]
+inquirer.prompt(updateType).then(function (response){
+  let updateEmplo = response.updateEmp;
+  let updateRole = response.updateRole;
+  let updateDept = response.updateDept;
+  console.log(updateEmplo);
+  console.log(updateRole);
+  console.log(updateDept);
+  coneection.query("UPDATE employee SET role_id = ? WHERE id = ?", [[updateRole], [updateEmplo], [updateDept]], function (err, res) {
+    if (err) throw err;
+    console.log(`role was added`)
+    menuPrompts()
+  })
+  })
+
+//Viewing Functions
+async function viewRole() {
+  let roles = await connection.query("SELECT * FROM role")
+  console.table(roles);
+  menuPrompts();
+
+};
+
+function viewEmployee() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      menuPrompts();
+  })
+};
+
+function viewDepartment() {
+  connection.query("SELECT * FROM department", function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      menuPrompts();
+  })
+};
+
+//Adding Functions
+async function addRole() {
+  // let employee
+  let department = await connection.query("SELECT * FROM department");
+  const newRole = [{
+    type: "input",
+    message: "Name the new role.",
+    name: "roleName"
+  },
+  {type: "input",}
+  ]
 }
