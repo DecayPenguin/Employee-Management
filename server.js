@@ -294,3 +294,21 @@ function menuPrompts() {
   }))
 }
 
+// Menu activation
+function menuPrompts() {
+  inquirer.prompt(actionType).then(function(response) {
+    let choice = response.actionChoice[0];
+    console.log(choice);
+    if(choice === "add") {
+      console.log("add");
+      addQuestions();
+    }
+    if (choice == "view") {
+      console.log("update");
+      updateQuestions();
+    }
+    else {
+      console.log("Bye for now!");
+    }
+  })}
+
