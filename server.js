@@ -128,7 +128,7 @@ async function viewRole() {
   let roles = await connection.query("SELECT * FROM role")
   console.table(roles);
   menuPrompts();
-
+  
 };
 
 function viewEmployee() {
@@ -148,32 +148,133 @@ function viewDepartment() {
 };
 
 //Adding Functions
+// async function addRole() {
+//   // let employee
+//   let department = await connection.query("SELECT * FROM department");
+//   const newRole = [{
+//     type: "input",
+//     message: "Name the new role.",
+//     name: "roleName"
+//   },
+//   {
+//     type: "input",
+//     message: "Input the role's salary(Only numbers are accepted, no decimals or commas)",
+//     name: "salary"
+//   },
+//   {
+//     type: "list",
+//     message: "Assign a department to this role",
+//     choices: department.map(function(department) {
+//       return {
+//         name: department.name,
+//         value: department.id
+//       };
+//     }),
+//     name: "roleDepartment"
+//   },
+//   {
+
+//   }
+//   ]  
+// }
+
 async function addRole() {
-  // let employee
   let department = await connection.query("SELECT * FROM department");
   const newRole = [{
-    type: "input",
-    message: "Name the new role.",
-    name: "roleName"
+      type: "input",
+      message: "Name the new role.",
+      name: "roleName"
   },
   {
-    type: "input",
-    message: "Input the role's salary(Only numbers are accepted, no decimals or commas)",
-    name: "salary"
+      type: "input",
+      message: "Input the role's salary(Only numbers are accepted, no decimals or commas)",
+      name: "salary"
   },
   {
-    type: "list",
-    message: "Assign a department to this role",
-    choices: department.map(function(department) {
-      return {
-        name: department.name,
-        value: department.id
-      };
-    }),
-    name: "roleDepartment"
-  },
-  {
-
-  }
-  ]  
+      type: "list",
+      message: "Assign a department to this role",
+      choices: department.map(function(department) {
+          return {
+              name: department.name,
+              value: department.id
+          };
+      }),
+      name: "roleDepartment"
+  }]
 }
+
+// async function addEmployee() {
+//   let roles = await connection.query("SELECT * FROM role");
+//   let manager = await connection.query("SELECT * FROM employee WHERE manager_id is null");
+//   console.table(manager);
+//   console.log(roles);
+//   const newEmployee = [{
+//     type: "input",
+//     message: "Supply the employee's first name.",
+//     name: "firstName"
+//     },
+//     {
+//     type: "input",
+//     message: "Supply the employee's last name.",
+//     name: lastName
+//     },
+//     {
+//       type: "list",
+//       message: "Select the employee's role",
+//       choices: roles.map(function (role) {
+//         name: role.name;
+//         value: role.id
+//       };
+//     }),
+//     name: "hasManager"
+//   }
+// ];
+
+async function addEmployee() {
+  let roles = await connection.query("SELECT * FROM role");
+  let manager = await connection.query("SELECT * FROM employee WHERE manager_id is null");
+  console.table(manager);
+
+  console.log(roles);
+  const newEmployee = [{
+      type: "input",
+      message: "Supply the employee's first name.",
+      name: "firstName",
+  },
+  {
+      type: "Input",
+      message: "Supply the employee's last name.",
+      name: "lastName"
+  },
+  {
+      type: "checkbox",
+      message: "Select the employee's role",
+      choices: roles.map(function (role) {
+          return {
+              name: role.name,
+              value: role.id
+          };
+      }),
+      name: "roleName"
+  },
+  {
+      type: "list",
+      message: "Who is the employees manager?",
+      choices: manager.map(function (employee) {
+          return {
+              name: employee.last_name,
+              value: employee.id
+          };
+      }),
+      name: "hasManager"
+  }
+]}
+
+inquirer.prompt(newEmployee).then(function (response) {
+  let departmentName = response.departmentName
+  connection.query("INSERT INTO department(name) VALUES (?)", [[departmentName]], function (err, res) {
+    if (err) throw err;
+    console.log(`$departmentName was added`)
+    menuPrompts()
+  })
+})
