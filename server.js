@@ -51,6 +51,3 @@ const newDepartment = [{
 }];
        
 
-
-// function call to initialize program
-init();
