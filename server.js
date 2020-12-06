@@ -278,3 +278,19 @@ inquirer.prompt(newEmployee).then(function (response) {
     menuPrompts()
   })
 })
+
+function menuPrompts() {
+  inquirer.prompt(action(Type).then(function(response) {
+    let choice = response.actionChoice[0];
+    console.log(choice);
+    if(choice === "view") {
+      console.log("view");
+      viewQuestions();
+    }
+    if (choice === "add") {
+      console.log("add");
+      addQuestions();
+    }
+  }))
+}
+
