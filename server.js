@@ -50,16 +50,7 @@ const newDepartment = [{
   message: 'Name this department.'  
 }];
        
-    .then(answers => {
-      console.info('Answers:', answers);
-      var formatAnswers = generateMarkdown(answers)
-      fs.writeFile('README.md', formatAnswers, (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });
-      
-    });
-}
+
 
 // function call to initialize program
 init();
