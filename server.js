@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const util = require("util");
+const addType = require("addType");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -125,7 +126,7 @@ inquirer.prompt(updateType).then(function (response){
   console.log(updateEmplo);
   console.log(updateRole);
   console.log(updateDept);
-  coneection.query("UPDATE employee SET role_id = ? WHERE id = ?", [[updateRole], [updateEmplo], [updateDept]], function (err, res) {
+  connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [[updateRole], [updateEmplo], [updateDept]], function (err, res) {
     if (err) throw err;
     console.log(`role was added`)
     menuPrompts()
@@ -313,7 +314,7 @@ function menuPrompts() {
       addQuestions();
     }
     if (choice == "view") {
-      console.log("update");
+      console.log("view");
       updateQuestions();
     }
     else {
