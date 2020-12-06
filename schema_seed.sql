@@ -31,27 +31,27 @@ CREATE TABLE employee(
 -- Role ID
 INSERT INTO department (name)
 VALUES
-("Manufacturing"),
+("Artist"),
 ("Business"),
 ("Legal");
 
 -- Department ID
 INSERT INTO role(name, salary, department_id)
-VALUES(Engineer, 66100, 1)
+VALUES(Fashion Design, 66100, 1)
 (Marketer, 44000, 2)
 (Lawyer, 74000, 3)
 
 -- INSERT INTO department
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
-VALUES ("Evan", "Hansen", 1, null),
+VALUES ("Evan", "Hansen", 1, Manager),
 ("Jason", "Dean", 2, 1),
 ("Alex", "Rider", 2, 1),
-("Rich", "Goranski", 2, null),
+("Rich", "Goranski", 2, Manager),
 ("Jeremy", "Heere", 2, 4),
 ("Michael", "Mell", 2, 4),
 ("Nicholas", "Bourbaki", 2, 4)
-("Veronica", "Sawyer", 3, null),
+("Veronica", "Sawyer", 3, Manager),
 ("Lydia", "Deetz", 3, 8)
 ("Delia", "Deetz", 3, 8)
 ("Chirstine", "Canigula", 3, 8)

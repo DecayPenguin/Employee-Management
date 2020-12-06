@@ -26,22 +26,22 @@ connection.query = util.promisify(connection.query);
 const actionType = [{
   type: 'list',
   name: 'actionSelect',
-  message: 'What action would you like to perform?',
-  choices: ["Add", "View", "Update", "Quit"],
+  message: 'What action will you perform?',
+  choices: ["View", "Add", "Update", "Quit"],
 }];
      
 const addType = [{
   type: 'list',
   name: 'addSelect',
   message: 'What would you like to add?',
-  choices: ["employee", "role", "department", "quit"],
+  choices: ["Employee", "Role", "Department", "Quit"],
 }];
 
 const viewType = [{
   type: 'list',
   name: 'viewSelect',
   message: 'What would you like to view?',
-  choices: ["employee", "role", "department", "quit"],
+  choices: ["Employee", "Role", "Department", "Quit"],
 }];
 
 const newDepartment = [{
@@ -51,23 +51,25 @@ const newDepartment = [{
 }];
        
 
+
+
 function viewQuestions() {
   inquirer.prompt(viewType).then(function (response) {
-  let choice = response.viewChoice[0];
-  console.log(choice);
-  if (choice === "department") {
-    viewDepartment()
-  };
-  if(choice === "role") {
-    viewRole()
-  };
-  if (choice === "employee") {
-    viewEmployee()
-  };
-})
-}
+      let choice = response.viewChoice[0];
+      console.log(choice);
+      if (choice === "Department") {
+          viewDepartment()
+      };
+      if (choice === "Role") {
+          viewRole()
+      };
+      if (choice === "Employee") {
+          viewEmployee()
+      };
+  })
+};
 
-async function updateQuestions() {
+function viewQuestions() {
   let roles = await connection.query("SELECT * FROM role");
   let employees = await connection.query("SELECT * FROM employee");
   const updateType = [{
@@ -83,7 +85,7 @@ async function updateQuestions() {
   },
   {
       type: "list",
-      message: "Select the role to give to the employee",
+      message: "Select the role to apply to the employee.",
       choices: roles.map(function (role) {
           return {
               name: role.name,
@@ -93,3 +95,27 @@ async function updateQuestions() {
       name: "newRole"
   }
 ]};
+
+function addQuestions() {
+  inquirer.prompt(viewType).then(function (response) {
+    let choice = response.viewChoice[0];
+    console.log(choice);
+    if (choice === "Department") {
+      viewDepartment()
+    };
+    if(choice === "Role") {
+      viewRole()
+    };
+    if (choice === "Employee") {
+      viewEmployee()
+    };
+  })
+}
+
+async function updateQuestions() {
+  let roles = await connection.query("SELECT * FROM employee");
+  let employees = await connection.query("SELECT * FROM employee")
+  const updateType = [{
+    type: "list"
+  }]
+}
