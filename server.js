@@ -2,7 +2,6 @@ const express = require("express");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const util = require("util");
-const addType = require("addType");
 
 const connection = mysql.createConnection({
     host: "localhost",
