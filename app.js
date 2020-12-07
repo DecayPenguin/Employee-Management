@@ -10,9 +10,72 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./Develop/lib/htmlRenderer");
 
-
+const render = require("./lib/htmlRenderer.js");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const teamMembers = [];
+const idArray = [];
+
+function appMenu() {
+    function createManager() {
+        console.log("Assemble your team");
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "mangName",
+                message: "Who is the manger?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "You must enter at least one character.";
+                }
+            },
+            {
+                type: "input",
+                name: "mangId",
+                message: "Give the manager's ID number.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "You must enter a positive number that is greater than zero for the ID number.";
+                }
+            },
+            {
+                type: "input",
+                name: "mangEmail",
+                message: "Give the manager's email.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return;
+                    }
+                    return "Enter a valid email address."
+                }
+            },
+            {
+                type: "input",
+                name: "mangOff#",
+                message: "Give the manager's office number.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[-9]\d&$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "You must enter a positive number that is greater than zero for the office number."
+                }
+            }
+        ]).then(answers =>)
+    }
+}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
