@@ -17,7 +17,7 @@ function addQuestions() {
     })
 }
 
-INSERT INTO employee(first_name, last_name, rolde_id, )
+INSERT INTO employee(first_name, last_name, role_id, )
 
 CREATE TABLE employee(
     id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,

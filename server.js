@@ -42,6 +42,12 @@ const newDepartment = [{
   name: 'departmentTitle',
   message: 'Name this department.'  
 }];
+
+const updateType = [{
+  type: "list",
+  name: "update",
+  message: "Update this."
+}];
        
 
 
@@ -79,11 +85,12 @@ function viewQuestions() {
 };
 
 
+
 async function updateQuestions() {
   let roles = await connection.query("SELECT * FROM role");
   let employees = await connection.query("SELECT * FROM employee");
   let department = await connection.query("SELECT * FROM department");
-[{
+const updateType = [{
       type: "list",
       message: "Select the employee you wish to update",
       choices: employees.map(function (employee) {
