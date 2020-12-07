@@ -73,7 +73,12 @@ function appMenu() {
                     return "You must enter a positive number that is greater than zero for the office number."
                 }
             }
-        ]).then(answers =>)
+        ]).then(answers => {
+            const manager = new Manager(answers.mangName, answers.mangId, answers.mangEmail, answers.mangOff#);
+            teamMembers.push(manager);
+            idArray.push(answers.mangId);
+            createTeam();
+        });
     }
 }
 
