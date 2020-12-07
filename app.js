@@ -16,6 +16,7 @@ const render = require("./lib/htmlRenderer.js");
 const teamMembers = [];
 const idArray = [];
 
+// Prompt for manager creation
 function appMenu() {
     function createManager() {
         console.log("Assemble your team");
@@ -93,8 +94,30 @@ function appMenu() {
                 ]
             }
         ]).then(userSelect => {
-            switch(userSelect.memberSelect)
-        })
+            switch(userSelect.memberSelect) {
+                case "Engineer":
+                    addEngineer();
+                    break;
+                    case "Intern":
+                        addIntern();
+                        break;
+                        default:
+                            buildTeam();
+            }
+        });
+    }
+    function addEngineer() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engiName",
+                validate: answer => {
+                    if (answer !== "") {
+                        return "You must enter at least one character.";
+                    }
+                }
+            }
+        ])
     }
 }
 
