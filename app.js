@@ -5,231 +5,90 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_DIR = path.resolve(__dirname, "./Develop/output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./Develop/lib/htmlRenderer");
+let employees = []
 
-const render = require("./lib/htmlRenderer.js");
+// function to initialize program
+// this function asks for intern
+function init() {
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Provide the name of the member',
+        default: 'New member',
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'Provide the email of the member',
+        default: 'newmember@gmail.com',
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: 'Provide the ID number of the member',
+      },
+      {
+        type: 'list',
+        name: 'roles',
+        message: 'Choose the role of this team member',
+        choices: ["Intern", "Engineer", "Manager"]
+        //, "Int", "Engi", "Manager"
+      },
+
+
+  
+  
+    ])
+    .then(answers => {
+      //console.info('Answers:', answers.roles); 
+      //Adding in variables via Name:
+      let id = answers.id
+      let name = answers.name
+      let email = answers.email
+      if (answers.roles === "Intern") {
+          inquirer
+          .prompt([
+            {
+              type: 'input',
+              name: 'school',
+              message: 'Provide the name of the school member attended/attends',
+            }
+            ]).then(
+                internAnswers => {
+                    let school = internAnswers.school
+                    let newIntern = new Intern(school, name, email, id)
+                    console.log(newIntern)
+                    employees.push(newIntern)
+                console.log("emp", employees)
+                }
+
+            )
+          
+      }
+     
+      
+    });
+
+    var formatAnswers = render(employees)
+   
+fs.writeFile(outputPath, formatAnswers, (err) => {
+if (err) throw err;
+console.log('The file has been saved!');
+            });
+}
+
+init();
+
+
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-const teamMembers = [];
-const idArray = [];
-
-// Prompt for manager creation
-function appMenu() {
-    function createManager() {
-        console.log("Assemble your team");
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "mangName",
-                message: "Who is the manger?",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "You must enter at least one character.";
-                }
-            },
-            {
-                type: "input",
-                name: "mangId",
-                message: "Give the manager's ID number.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /^[1-9]\d*$/
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return "You must enter a positive number that is greater than zero for the ID number.";
-                }
-            },
-            {
-                type: "input",
-                name: "mangEmail",
-                message: "Give the manager's email.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /\S+@\S+\.\S+/
-                    );
-                    if (pass) {
-                        return;
-                    }
-                    return "Enter a VALID email address for this manager."
-                }
-            },
-            {
-                type: "input",
-                name: "mangOff",
-                message: "Give the manager's office number.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /^[-9]\d&$/
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return "You must enter a positive number that is greater than zero for the office number."
-                }
-            }
-            //Engineer Prompt
-        ]).then(answers => {
-            const manager = new Manager(answers.mangName, answers.mangId, answers.mangEmail, answers.mangOff);
-            teamMembers.push(manager);
-            idArray.push(answers.mangId);
-            createTeam();
-        });
-    }
-    function createTeam() {
-        inquirer.prompt([
-            {
-                type: "list",
-                name: "memberSelect",
-                message: "What role would you like to give the new team member?",
-                choices: [
-                    "Engineer",
-                    "Intern",
-                    "No longer adding."
-                ]
-            }
-        ]).then(userSelect => {
-            switch(userSelect.memberSelect) {
-                case "Engineer":
-                    addEngineer();
-                    break;
-                    case "Intern":
-                        addIntern();
-                        break;
-                        default:
-                            buildTeam();
-            }
-        });
-    }
-    function addEngineer() {
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "engiName",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "You must enter at least one character for the engineer's name.";
-                }
-            },
-            {
-                type: "input",
-                name: "engiId",
-                message: "Give the engineer's ID number.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /^[1-9]\d*$/
-                    );
-                    if (pass) {
-                        if (idArray.includes(answer)) {
-                            return "This ID is occupied. Enter a different number.";
-                        } else {
-                            return true;
-                        }
-                    }
-                    return "You must enter a positive number greater than zero for the engineer ID.";
-                }
-            },
-            {
-                type: "input",
-                name: "engiEmail",
-                message: "Give the engineer's email address.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /\S+@\S+\.\S+/
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return "You must enter a VALID email address for this engineer.";
-                }
-            },
-            {
-                type: "input",
-                name: "engiGithub",
-                message: "Enter your engineer's GitHub username",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "You must enter at least one character for the engineer's GitHub username.";
-                }
-            }
-        ]).then(answers => {
-            const engineer = new Engineer(answers.engiName, answers.engiId, answers.engiEmail, answers.engiGithub);
-            teamMembers.push(engineer);
-            idArray.push(answers.engiId);
-            createTeam();
-        });
-    }
-    // Intern prompt
-    function addIntern() {
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "intName",
-                message: "Give the intern's name.",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "You must enter at least one character for the intern's name.";
-                }
-            },
-            {
-                type: "input",
-                name: "intId",
-                message: "Give this intern an ID number.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /^[1-9]\d*$/
-                    );
-                    if (pass) {
-                        if (idArray.includes(answer)) {
-                            return "This ID number is occupied. Enter a different number.";
-                        } else {
-                            return true;
-                        }
-
-                    }
-                    return "Enter a positive number that is greater than zero.";
-                }
-            },
-            {
-                type: "input",
-                name: "intEmail",
-                message: "Enter the intern's email.",
-                validate: answer => {
-                    const pass = answer.match(
-                        /\S+@\S+\.\S+/
-                    );
-                    if (pass) {
-                        return true;
-                    }
-                    return "Enter a VALID email address for this intern."
-                }
-            },
-            {
-                type: "input",
-                name: "intSchool",
-                message: "Give the intern's school name.",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "You must enter at least one character.";
-                }
-            }
-        ])
-    }
-}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
