@@ -61,7 +61,7 @@ function appMenu() {
             },
             {
                 type: "input",
-                name: "mangOff#",
+                name: "mangOff",
                 message: "Give the manager's office number.",
                 validate: answer => {
                     const pass = answer.match(
@@ -74,11 +74,27 @@ function appMenu() {
                 }
             }
         ]).then(answers => {
-            const manager = new Manager(answers.mangName, answers.mangId, answers.mangEmail, answers.mangOff#);
+            const manager = new Manager(answers.mangName, answers.mangId, answers.mangEmail, answers.mangOff);
             teamMembers.push(manager);
             idArray.push(answers.mangId);
             createTeam();
         });
+    }
+    function createTeam() {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "memberSelect",
+                message: "What role would you like to give the new team member?",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    "No longer adding."
+                ]
+            }
+        ]).then(userSelect => {
+            switch(userSelect.memberSelect)
+        })
     }
 }
 
