@@ -74,6 +74,7 @@ function appMenu() {
                     return "You must enter a positive number that is greater than zero for the office number."
                 }
             }
+            //Engineer Prompt
         ]).then(answers => {
             const manager = new Manager(answers.mangName, answers.mangId, answers.mangEmail, answers.mangOff);
             teamMembers.push(manager);
@@ -113,9 +114,68 @@ function appMenu() {
                 name: "engiName",
                 validate: answer => {
                     if (answer !== "") {
-                        return "You must enter at least one character.";
+                        return true;
                     }
+                    return "You must enter at least one character.";
                 }
+            },
+            {
+                type: "input",
+                name: "engiId",
+                message: "Give the engineer's ID number.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        if (idArray.includes(answer)) {
+                            return "This ID is occupied. Enter a different number.";
+                        } else {
+                            return true;
+                        }
+                    }
+                    return "You must enter a positive number greater than zero for the engineer ID.";
+                }
+            },
+            {
+                type: "input",
+                name: "engiEmail",
+                message: "Give the engineer's email address.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "You must enter a VALID email address";
+                }
+            },
+            {
+                type: "input",
+                name: "engiGithub",
+                message: "Enter your engineer's GitHub username",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "You must enter at least one character.";
+                }
+            }
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engiName, answers.engiId, answers.engiEmail, answers.engiGithub);
+            teamMembers.push(engineer);
+            idArray.push(answers.engiId);
+            createTeam();
+        });
+    }
+    // Intern prompt
+    function addIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "intName",
+                message: "Give the intern's name.",
             }
         ])
     }
