@@ -78,11 +78,12 @@ function viewQuestions() {
   })
 };
 
+
 async function updateQuestions() {
   let roles = await connection.query("SELECT * FROM role");
   let employees = await connection.query("SELECT * FROM employee");
   let department = await connection.query("SELECT * FROM department");
-  const updateType = [{
+[{
       type: "list",
       message: "Select the employee you wish to update",
       choices: employees.map(function (employee) {
@@ -132,7 +133,7 @@ inquirer.prompt(updateType).then(function (response){
   })
   })
 
-//Viewing Functions
+////Viewing Functions
 async function viewRole() {
   let roles = await connection.query("SELECT * FROM role")
   console.table(roles);
@@ -156,7 +157,7 @@ function viewDepartment() {
   })
 };
 
-//Adding Functions
+//(Adding Functions
 // async function addRole() {
 //   // let employee
 //   let department = await connection.query("SELECT * FROM department");
@@ -181,7 +182,7 @@ function viewDepartment() {
 //     }),
 //     name: "roleDepartment"
 //   },
-//   {
+//  () {
 
 //   }
 //   ]  
@@ -212,7 +213,7 @@ async function addRole() {
   }]
 }
 
-// async function addEmployee() {
+// (async function addEmployee() {
 //   let roles = await connection.query("SELECT * FROM role");
 //   let manager = await connection.query("SELECT * FROM employee WHERE manager_id is null");
 //   console.table(manager);
@@ -237,7 +238,7 @@ async function addRole() {
 //     }),
 //     name: "hasManager"
 //   }
-// ];
+//() ];
 
 async function addEmployee() {
   let roles = await connection.query("SELECT * FROM role");
@@ -303,7 +304,7 @@ function menuPrompts() {
   }))
 }
 
-// Menu activation
+////Menu activation
 function menuPrompts() {
   inquirer.prompt(actionType).then(function(response) {
     let choice = response.actionChoice[0];
