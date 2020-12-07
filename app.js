@@ -57,7 +57,7 @@ function appMenu() {
                     if (pass) {
                         return;
                     }
-                    return "Enter a valid email address."
+                    return "Enter a VALID email address for this manager."
                 }
             },
             {
@@ -116,7 +116,7 @@ function appMenu() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "You must enter at least one character.";
+                    return "You must enter at least one character for the engineer's name.";
                 }
             },
             {
@@ -148,7 +148,7 @@ function appMenu() {
                     if (pass) {
                         return true;
                     }
-                    return "You must enter a VALID email address";
+                    return "You must enter a VALID email address for this engineer.";
                 }
             },
             {
@@ -159,7 +159,7 @@ function appMenu() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "You must enter at least one character.";
+                    return "You must enter at least one character for the engineer's GitHub username.";
                 }
             }
         ]).then(answers => {
@@ -176,6 +176,56 @@ function appMenu() {
                 type: "input",
                 name: "intName",
                 message: "Give the intern's name.",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "You must enter at least one character for the intern's name.";
+                }
+            },
+            {
+                type: "input",
+                name: "intId",
+                message: "Give this intern an ID number.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        if (idArray.includes(answer)) {
+                            return "This ID number is occupied. Enter a different number.";
+                        } else {
+                            return true;
+                        }
+
+                    }
+                    return "Enter a positive number that is greater than zero.";
+                }
+            },
+            {
+                type: "input",
+                name: "intEmail",
+                message: "Enter the intern's email.",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Enter a VALID email address for this intern."
+                }
+            },
+            {
+                type: "input",
+                name: "intSchool",
+                message: "Give the intern's school name.",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "You must enter at least one character.";
+                }
             }
         ])
     }
