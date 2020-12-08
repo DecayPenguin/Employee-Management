@@ -96,6 +96,11 @@ function init() {
                 type: 'input',
                 name: 'github',
                 message: 'Provide the GitHub of the new member',
+            },
+            {
+                type: 'input',
+                name: 'officeNumber',
+                message: 'Provide the office number of the manager',
             }
         ]).then(
             managerAnswers => {
