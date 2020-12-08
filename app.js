@@ -38,7 +38,7 @@ function init() {
         name: 'roles',
         message: 'Choose the role of this team member',
         choices: ["Intern", "Engineer", "Manager"]
-        //, "Int", "Engi", "Manager"
+        //, "Int", "Engi", "Manag"
       },
 
 
