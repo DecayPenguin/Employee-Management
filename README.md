@@ -23,3 +23,4 @@ Or just review my GitHub here.
 https://github.com/DecayPenguin
 
 # Video Tutorial
+https://www.youtube.com/watch?v=4Id0S1Qwr8A&feature=youtu.be
