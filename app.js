@@ -62,7 +62,7 @@ function init() {
             ]).then(
                 internAnswers => {
                     let school = internAnswers.school
-                    let newIntern = new Intern(school, name, email, id)
+                    let newIntern = new Intern(school, name, email, id, github)
                     console.log(newIntern)
                     employees.push(newIntern)
                 console.log("emp", employees)
@@ -71,6 +71,44 @@ function init() {
             )
           
       }
+      if (answers.roles === "Engineer") {
+          inquirer
+          .prompt([
+              {
+                  type: 'input',
+                  name: 'github',
+                  message: 'Provide the GitHub of the new member',
+              }
+          ]).then(
+              engineerAnswers => {
+                  let github = engineerAnswers.github
+                  let newEngineer = new Engineer(name, email, id, github)
+                  console.log(newEngineer)
+                  employees.push(newEngineer)
+            console.log("emp", employees)
+              }
+          )
+      }
+      if (answers.roles === "Manager") {
+        inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'github',
+                message: 'Provide the GitHub of the new member',
+            }
+        ]).then(
+            managerAnswers => {
+                let github = managerAnswers.github
+                let newManager= new Manager(name, email, id, github)
+                console.log(newManager)
+                employees.push(newManager)
+          console.log("emp", employees)
+            }
+        )
+    }
+
+      
      
       
     });
